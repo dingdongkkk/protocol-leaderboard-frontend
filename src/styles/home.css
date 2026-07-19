@@ -553,12 +553,12 @@
   }
 
   .hh-visual {
-    margin-top: 2rem;
+    margin-top: 4rem;
     min-height: 0;
   }
 
   .hh-card {
-    width: min(280px, 55vw);
+    width: min(320px, 65vw);
     border-radius: 22px;
     padding: 14px;
   }
@@ -606,8 +606,12 @@
     padding-left: 0.85rem;
   }
 
+  .hh-visual {
+    margin-top: 3.5rem;
+  }
+
   .hh-card {
-    width: min(220px, 50vw);
+    width: min(260px, 62vw);
     border-radius: 18px;
     padding: 10px;
   }
