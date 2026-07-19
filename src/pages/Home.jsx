@@ -222,17 +222,6 @@ export default function Home() {
             </div>
           </div>
 
-          {/* scroll hint */}
-          <motion.div
-            className="hh-scroll"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 2.4, duration: 0.8 }}
-          >
-            <div className="hh-scroll-mouse" />
-            Scroll
-          </motion.div>
-
           {/* SVG Wave at bottom */}
           <div className="hero-wave">
             <svg viewBox="0 0 1440 150" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">

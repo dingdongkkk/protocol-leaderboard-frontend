@@ -7,6 +7,7 @@
 
 .home-main {
   padding-top: 0 !important;
+  overflow-x: hidden;
 }
 
 /* ================= HERO ================= */
@@ -208,6 +209,7 @@
   justify-content: center;
   min-height: 420px;
   perspective: 1100px;
+  overflow: hidden;
 }
 
 .hh-card {
