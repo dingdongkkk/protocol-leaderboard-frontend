@@ -389,9 +389,13 @@
    phones and tablets. Palette untouched.
    ================================================================ */
 
-/* NOTE: no overflow rule on html/body — it silently disables window
-   scrolling. Wide elements (marquee, orbits) are clipped by their own
-   overflow:hidden sections instead. */
+/* Prevent horizontal overflow from wide decorative elements (orbits,
+   glow blobs, marquee). Only overflow-x is restricted; vertical
+   scrolling is unaffected. */
+html,
+body {
+  overflow-x: hidden;
+}
 
 /* The navbar is ~74px tall; the legacy CSS set body padding to 120px
    on desktop and a broken 0.25px on mobile. Normalize everywhere. */
