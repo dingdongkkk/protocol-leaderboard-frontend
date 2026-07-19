@@ -35,9 +35,15 @@ export default function Hackathon() {
     <PageTransition>
       <main>
         <section className="hackathon-hero container position-relative">
-          <div className="hackathon-loading" aria-hidden="true">
+          <motion.div
+            className="hackathon-loading"
+            aria-hidden="true"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.5, duration: 0.4 }}
+          >
             <span />
-          </div>
+          </motion.div>
           <div className="row justify-content-center">
             <div className="col-lg-8">
               <h1 className="hackathon-title mb-4">
