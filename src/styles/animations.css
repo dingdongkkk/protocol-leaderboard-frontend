@@ -1,0 +1,480 @@
+/* ================================================================
+   animations.css — Motion & aesthetic layer for the React rebuild.
+   Strictly reuses the existing palette / fonts / sizes:
+   --dark-bg:#171515  --text-light:#e9d8de  --muted-pink:#d8a6b6
+   --deep-maroon:#7f1f3a  --accent:#c57a90  gradients #CFA5B2 → #620E36
+   ================================================================ */
+
+/* ---------- Scroll progress bar ---------- */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #7f1f3a, #d8a6b6, #CFA5B2);
+  transform-origin: 0 50%;
+  z-index: 3000;
+  pointer-events: none;
+}
+
+/* ---------- Ambient aurora glow blobs ---------- */
+.aurora {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.aurora-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(120px);
+  opacity: 0.14;
+  will-change: transform;
+}
+
+.aurora-blob.b1 {
+  width: 520px;
+  height: 520px;
+  background: #7f1f3a;
+  top: -140px;
+  left: -120px;
+  animation: aurora-drift-1 26s ease-in-out infinite alternate;
+}
+
+.aurora-blob.b2 {
+  width: 460px;
+  height: 460px;
+  background: #d8a6b6;
+  top: 40vh;
+  right: -160px;
+  opacity: 0.10;
+  animation: aurora-drift-2 32s ease-in-out infinite alternate;
+}
+
+.aurora-blob.b3 {
+  width: 380px;
+  height: 380px;
+  background: #620E36;
+  bottom: -120px;
+  left: 30vw;
+  opacity: 0.16;
+  animation: aurora-drift-3 38s ease-in-out infinite alternate;
+}
+
+@keyframes aurora-drift-1 {
+  from { transform: translate(0, 0) scale(1); }
+  to   { transform: translate(140px, 90px) scale(1.2); }
+}
+
+@keyframes aurora-drift-2 {
+  from { transform: translate(0, 0) scale(1); }
+  to   { transform: translate(-120px, -70px) scale(1.15); }
+}
+
+@keyframes aurora-drift-3 {
+  from { transform: translate(0, 0) scale(1); }
+  to   { transform: translate(90px, -110px) scale(0.9); }
+}
+
+/* App content sits above the aurora layer */
+#root main,
+#root header,
+#root footer {
+  position: relative;
+  z-index: 1;
+}
+
+/* ---------- Animated gradient shimmer on handwritten headings ---------- */
+.countdown-pre,
+.hero-main .handwritten,
+.about-hand,
+.vertical-label .vertical-handwritten,
+.section-heading,
+.synergy-title .hand,
+.notes-title,
+.notes-year-title,
+.game-title,
+.quiz-title-react {
+  background-size: 200% 200% !important;
+  animation: gradient-shimmer 7s ease-in-out infinite;
+}
+
+@keyframes gradient-shimmer {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ---------- Navbar polish ---------- */
+.site-header .navbar {
+  transition: box-shadow .4s ease, background-color .4s ease;
+}
+
+.site-header .navbar.scrolled {
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.55), 0 1px 0 rgba(216, 166, 182, 0.15);
+  background-color: rgba(23, 21, 21, 0.96);
+}
+
+/* Animated underline for nav links (same pink) */
+.nav-center .nav-link {
+  position: relative;
+  transition: color .25s ease;
+}
+
+.nav-center .nav-link::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 2px;
+  width: 0;
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #CFA5B2, #620E36);
+  transform: translateX(-50%);
+  transition: width .3s ease;
+}
+
+.nav-center .nav-link:hover::after,
+.nav-center .nav-link.active::after {
+  width: 60%;
+}
+
+.nav-center .nav-link.active {
+  color: var(--muted-pink);
+}
+
+/* Logo micro-interaction */
+.nav-logo {
+  transition: transform .35s ease, filter .35s ease;
+}
+
+.navbar-brand:hover .nav-logo {
+  transform: scale(1.06) rotate(-3deg);
+  filter: drop-shadow(0 0 10px rgba(216, 166, 182, 0.45));
+}
+
+/* Contact button shine sweep */
+.btn-contact,
+.btn-light-fill,
+.read-btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-contact::before,
+.btn-light-fill::before,
+.read-btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -80%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.45), transparent);
+  transform: skewX(-20deg);
+  transition: left .55s ease;
+  pointer-events: none;
+}
+
+.btn-contact:hover::before,
+.btn-light-fill:hover::before,
+.read-btn:hover::before {
+  left: 130%;
+}
+
+/* Buttons: lift + glow on hover (palette pink) */
+.btn-pill,
+.btn-contact {
+  transition: transform .25s ease, box-shadow .25s ease, background .25s ease, color .25s ease;
+}
+
+.btn-pill:hover,
+.btn-contact:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 26px rgba(216, 166, 182, 0.28), 0 4px 10px rgba(0, 0, 0, 0.4);
+}
+
+.btn-light-outline:hover {
+  background: rgba(207, 165, 178, 0.12);
+  color: var(--text-light);
+  border-color: #CFA5B2;
+}
+
+/* ---------- Hero extras ---------- */
+.hero-particles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Floating ring pulse behind hero logo */
+.hero-image-wrap {
+  position: relative;
+  animation: hero-float 6s ease-in-out infinite;
+}
+
+@keyframes hero-float {
+  0%, 100% { transform: rotate(-6deg) translateY(0); }
+  50%      { transform: rotate(-6deg) translateY(-14px); }
+}
+
+.hero-image-wrap:hover {
+  animation-play-state: paused;
+}
+
+.hero-image-wrap::after {
+  content: "";
+  position: absolute;
+  inset: -18px;
+  border-radius: 34px;
+  border: 2px solid rgba(216, 166, 182, 0.35);
+  animation: ring-pulse 3.2s ease-out infinite;
+  pointer-events: none;
+}
+
+@keyframes ring-pulse {
+  0%   { transform: scale(0.94); opacity: 0.7; }
+  70%  { transform: scale(1.08); opacity: 0; }
+  100% { transform: scale(1.08); opacity: 0; }
+}
+
+/* Wave gentle sway */
+.hero-wave svg {
+  width: 100%;
+  height: 100%;
+}
+
+.hero-wave path {
+  animation: wave-sway 9s ease-in-out infinite alternate;
+}
+
+@keyframes wave-sway {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-26px); }
+}
+
+/* Blinking caret feel on the "Where" pre-heading */
+.hero-pre {
+  overflow: hidden;
+}
+
+/* ---------- Cards: glow border sweep ---------- */
+.game-card,
+.event-card,
+.member-card,
+.article-card,
+.semester-card,
+.about-box,
+.winner-card,
+.contact-card {
+  will-change: transform;
+}
+
+.game-card {
+  /* transform is driven by the JS tilt spring — only fade shadow/border here */
+  transition: box-shadow .35s ease, border-color .35s ease;
+  border: 2px solid transparent;
+  transform-style: preserve-3d;
+}
+
+.game-card:hover {
+  border-color: rgba(216, 166, 182, 0.55);
+  box-shadow: 0 26px 60px rgba(0, 0, 0, 0.65), 0 0 34px rgba(216, 166, 182, 0.14);
+}
+
+/* ---------- Countdown digits ---------- */
+.count-number {
+  text-shadow: 0 0 26px rgba(216, 166, 182, 0.25);
+}
+
+.countdown-item {
+  position: relative;
+}
+
+.count-digit {
+  display: inline-block;
+}
+
+/* ---------- Social icons ---------- */
+.social-icons .social {
+  transition: transform .25s ease, background .25s ease, color .25s ease, box-shadow .25s ease;
+}
+
+.social-icons .social:hover {
+  transform: translateY(-6px) rotate(-6deg);
+  box-shadow: 0 10px 22px rgba(216, 166, 182, 0.25);
+}
+
+/* ---------- Footer links slide ---------- */
+.footer-links a {
+  transition: color .25s ease, transform .25s ease, padding-left .25s ease;
+}
+
+.footer-links a:hover {
+  padding-left: 8px;
+}
+
+/* ---------- Member photo subtle zoom ---------- */
+.member-photo {
+  transition: transform .4s ease, box-shadow .3s ease, filter .4s ease;
+}
+
+.member-card:hover .member-photo {
+  transform: scale(1.04);
+}
+
+/* ---------- Notes accordion ---------- */
+.subjects-grid-react {
+  display: grid;
+  margin-top: 20px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+}
+
+@media (max-width: 992px) {
+  .subjects-grid-react {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 576px) {
+  .subjects-grid-react {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---------- Contact page: keep heading clear of the fixed navbar ---------- */
+.contact-header {
+  padding-top: 40px;
+}
+
+/* ---------- Contact icons pulse ---------- */
+.contact-icon {
+  display: inline-block;
+  transition: transform .3s ease, filter .3s ease;
+}
+
+.contact-item:hover .contact-icon {
+  transform: translateY(-6px) scale(1.15);
+  filter: drop-shadow(0 6px 14px rgba(219, 161, 185, 0.45));
+}
+
+/* ---------- Selection color ---------- */
+::selection {
+  background: rgba(216, 166, 182, 0.35);
+  color: #fff;
+}
+
+/* ---------- Custom scrollbar (palette) ---------- */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #171515;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #7f1f3a, #d8a6b6);
+  border-radius: 8px;
+}
+
+/* ================================================================
+   RESPONSIVE FIX LAYER — loaded after global.css, overrides the
+   legacy conflicting padding/width rules so every page works on
+   phones and tablets. Palette untouched.
+   ================================================================ */
+
+/* NOTE: no overflow rule on html/body — it silently disables window
+   scrolling. Wide elements (marquee, orbits) are clipped by their own
+   overflow:hidden sections instead. */
+
+/* The navbar is ~74px tall; the legacy CSS set body padding to 120px
+   on desktop and a broken 0.25px on mobile. Normalize everywhere. */
+body {
+  padding-top: 88px !important;
+}
+
+main {
+  padding-top: 42px;
+}
+
+@media (max-width: 768px) {
+  body {
+    padding-top: 78px !important;
+  }
+
+  main {
+    padding-top: 24px;
+  }
+}
+
+/* Core page: legacy margin squished the grid on small screens */
+@media (max-width: 1199px) {
+  .core-grid-wrap {
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+  }
+}
+
+/* Synergy grid wrapper double-padding on phones */
+@media (max-width: 768px) {
+  .synergy-grid-wrap {
+    padding-left: calc(var(--bs-gutter-x, 1.5rem) * .5);
+  }
+
+  .notes-main {
+    padding-top: 40px;
+  }
+
+  .hackathon-hero {
+    padding-top: 50px;
+  }
+
+  .quiz-container {
+    margin-top: 30px;
+  }
+}
+
+/* Contact card fills small screens instead of 70% sliver */
+@media (max-width: 576px) {
+  .contact-card {
+    width: 100%;
+  }
+
+  .contact-title {
+    font-size: 46px;
+  }
+}
+
+/* Footer bottom bar wraps gracefully */
+.site-footer .d-flex.justify-content-between {
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+/* Home countdown tiles: beat the legacy !important shrink rule */
+@media (max-width: 991px) {
+  .home-countdown .count-number {
+    font-size: 2.4rem !important;
+  }
+
+  .home-countdown .count-label {
+    font-size: 0.85rem !important;
+  }
+}
+
+/* ---------- Reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

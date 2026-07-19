@@ -1,0 +1,96 @@
+/* Daily Challenge quiz styles — ported verbatim from daily-challenge.html */
+.quiz-container {
+  margin-top: 100px;
+  margin-bottom: 60px;
+  min-height: 60vh;
+  display: flex;
+  justify-content: center;
+}
+
+.quiz-box {
+  background: #1a1a1a;
+  padding: 40px;
+  border-radius: 22px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+  width: 100%;
+  max-width: 800px;
+  color: #E1CCD3;
+  margin: 0 auto;
+}
+
+.quiz-title {
+  font-family: 'Delicious Handrawn', cursive;
+  font-size: 3rem;
+  background: -webkit-linear-gradient(right, #CFA5B2, #620E36);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.question-card {
+  background: rgba(255, 255, 255, 0.03);
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.option-label {
+  display: block;
+  width: 100%;
+  margin-bottom: 10px;
+  background: transparent;
+  border: 1px solid #7f1f3a;
+  color: #e9d8de;
+  padding: 10px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.option-label:hover {
+  background: rgba(127, 31, 58, 0.3);
+}
+
+.option-label.selected {
+  background: rgba(127, 31, 58, 0.45);
+  border-color: #d8a6b6;
+}
+
+.option-label input {
+  margin-right: 10px;
+}
+
+.option-label.correct {
+  background: #198754;
+  border-color: #198754;
+  color: #fff;
+}
+
+.option-label.incorrect {
+  background: #dc3545;
+  border-color: #dc3545;
+  color: #fff;
+}
+
+.leaderboard-table th,
+.leaderboard-table td {
+  color: #e9d8de;
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.rank-1 {
+  color: #ffd700;
+  font-weight: bold;
+}
+
+.rank-2 {
+  color: #c0c0c0;
+  font-weight: bold;
+}
+
+.rank-3 {
+  color: #cd7f32;
+  font-weight: bold;
+}
