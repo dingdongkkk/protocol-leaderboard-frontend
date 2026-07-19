@@ -35,6 +35,9 @@ export default function Hackathon() {
     <PageTransition>
       <main>
         <section className="hackathon-hero container position-relative">
+          <div className="hackathon-loading" aria-hidden="true">
+            <span />
+          </div>
           <div className="row justify-content-center">
             <div className="col-lg-8">
               <h1 className="hackathon-title mb-4">

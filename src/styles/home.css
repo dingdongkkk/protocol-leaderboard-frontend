@@ -209,7 +209,7 @@
   justify-content: center;
   min-height: 420px;
   perspective: 1100px;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .hh-card {
@@ -259,6 +259,7 @@
   border: 1px dashed rgba(216, 166, 182, 0.28);
   border-radius: 50%;
   pointer-events: none;
+  z-index: 3;
 }
 
 .hh-orbit .dot {
@@ -270,6 +271,11 @@
   border-radius: 50%;
   background: #d8a6b6;
   box-shadow: 0 0 14px rgba(216, 166, 182, 0.8);
+  z-index: 4;
+}
+
+.hh-card {
+  z-index: 2;
 }
 
 .hh-orbit.o1 {

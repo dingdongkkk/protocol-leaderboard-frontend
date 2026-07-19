@@ -532,10 +532,14 @@ main {
 
 .home-main,
 .home-hero,
-.hh-visual,
 .event-marquee {
   max-width: 100%;
   overflow-x: clip;
+}
+
+.hh-visual {
+  max-width: 100%;
+  overflow: visible;
 }
 
 @media (max-width: 991px) {
