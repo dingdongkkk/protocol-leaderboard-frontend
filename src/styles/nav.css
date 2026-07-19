@@ -142,7 +142,7 @@
 /* Mobile menu panel */
 .pnav-mobile {
   position: fixed;
-  top: 68px;
+  top: var(--navbar-height);
   left: 0;
   right: 0;
   z-index: 999;
@@ -194,5 +194,21 @@
 
   .pnav-brand img {
     height: 46px;
+  }
+}
+
+/* Keep the navigation anchored to the viewport at every breakpoint. */
+:root {
+  --navbar-height: 76px;
+}
+
+.pnav {
+  width: 100%;
+  min-height: var(--navbar-height);
+}
+
+@media (max-width: 991px) {
+  :root {
+    --navbar-height: 67px;
   }
 }

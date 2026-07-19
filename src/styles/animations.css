@@ -482,3 +482,64 @@ main {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* ================================================================
+   FINAL LAYOUT SAFETY OVERRIDES
+   Keep the fixed navbar and page content in one predictable flow.
+   Decorative animations may extend beyond their own box, but never
+   beyond the viewport and never into horizontal page scrolling.
+   ================================================================ */
+
+:root {
+  --navbar-height: 76px;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  padding-top: var(--navbar-height) !important;
+}
+
+#root > header {
+  position: relative;
+  z-index: 1000;
+}
+
+main {
+  width: 100%;
+  max-width: 100%;
+  padding-top: 0 !important;
+}
+
+.pnav {
+  position: fixed !important;
+  inset: 0 0 auto;
+  width: 100%;
+  min-height: var(--navbar-height);
+}
+
+.pnav-mobile {
+  top: var(--navbar-height);
+  max-height: calc(100dvh - var(--navbar-height));
+  overflow-y: auto;
+}
+
+.home-main,
+.home-hero,
+.hh-visual,
+.event-marquee {
+  max-width: 100%;
+  overflow-x: clip;
+}
+
+@media (max-width: 991px) {
+  :root {
+    --navbar-height: 67px;
+  }
+}
