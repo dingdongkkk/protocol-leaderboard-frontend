@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useLayoutEffect } from 'react'
 import { Routes, Route, useLocation } from 'react-router-dom'
 import { AnimatePresence, motion, useScroll, useSpring } from 'framer-motion'
 
@@ -43,6 +43,24 @@ function Aurora() {
   )
 }
 
+/* Force scroll to top on every route change — fires synchronously
+   before the browser paints, with a rAF fallback for safety. */
+function ScrollToTop() {
+  const { pathname } = useLocation()
+
+  useLayoutEffect(() => {
+    window.scrollTo(0, 0)
+    document.documentElement.scrollTop = 0
+    document.body.scrollTop = 0
+    // rAF fallback in case layout hasn't settled yet
+    requestAnimationFrame(() => {
+      window.scrollTo(0, 0)
+    })
+  }, [pathname])
+
+  return null
+}
+
 export default function App() {
   const location = useLocation()
 
@@ -52,10 +70,11 @@ export default function App() {
 
   return (
     <>
+      <ScrollToTop />
       <ScrollProgress />
       <Aurora />
       <Navbar />
-      <AnimatePresence mode="wait" onExitComplete={() => window.scrollTo({ top: 0, behavior: 'instant' })}>
+      <AnimatePresence mode="wait" onExitComplete={() => window.scrollTo(0, 0)}>
         <Routes location={location} key={location.pathname}>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
