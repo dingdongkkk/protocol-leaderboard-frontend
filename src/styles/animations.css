@@ -271,7 +271,7 @@
 .about-box,
 .winner-card,
 .contact-card {
-  will-change: transform;
+  transform: translateZ(0);
 }
 
 .game-card {
@@ -279,6 +279,7 @@
   transition: box-shadow .35s ease, border-color .35s ease;
   border: 2px solid transparent;
   transform-style: preserve-3d;
+  will-change: transform;
 }
 
 .game-card:hover {

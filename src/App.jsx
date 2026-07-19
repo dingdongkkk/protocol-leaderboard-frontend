@@ -47,7 +47,6 @@ export default function App() {
   const location = useLocation()
 
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'instant' })
     document.title = titles[location.pathname] || 'Protocol'
   }, [location.pathname])
 
@@ -56,7 +55,7 @@ export default function App() {
       <ScrollProgress />
       <Aurora />
       <Navbar />
-      <AnimatePresence mode="wait">
+      <AnimatePresence mode="wait" onExitComplete={() => window.scrollTo({ top: 0, behavior: 'instant' })}>
         <Routes location={location} key={location.pathname}>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />

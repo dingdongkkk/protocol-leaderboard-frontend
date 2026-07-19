@@ -241,6 +241,22 @@
   transform: translateZ(30px);
 }
 
+.hh-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  pointer-events: none;
+  background: linear-gradient(115deg, transparent 35%, rgba(255, 255, 255, 0.13) 50%, transparent 65%);
+  background-size: 220% 100%;
+  background-position: 140% 0;
+  transition: background-position 0.8s ease;
+}
+
+.hh-card:hover::after {
+  background-position: -40% 0;
+}
+
 /* glow behind the card */
 .hh-visual::before {
   content: "";
@@ -272,6 +288,12 @@
   background: #d8a6b6;
   box-shadow: 0 0 14px rgba(216, 166, 182, 0.8);
   z-index: 4;
+  animation: hh-dot-pulse 2.4s ease-in-out infinite;
+}
+
+@keyframes hh-dot-pulse {
+  0%, 100% { transform: scale(0.82); opacity: 0.75; }
+  50% { transform: scale(1.18); opacity: 1; }
 }
 
 .hh-card {

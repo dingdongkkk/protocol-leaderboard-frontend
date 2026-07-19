@@ -8,13 +8,17 @@ export default function HeroParticles({ count = 45 }) {
 
   useEffect(() => {
     const canvas = canvasRef.current
-    const ctx = canvas.getContext('2d')
+    const ctx = canvas.getContext('2d', { alpha: true })
     let raf
     let particles = []
+    let visible = true
+    let lastFrame = 0
+    const frameInterval = 1000 / 30
+    const pixelRatio = Math.min(window.devicePixelRatio || 1, 1.5)
 
     function resize() {
-      canvas.width = canvas.offsetWidth * devicePixelRatio
-      canvas.height = canvas.offsetHeight * devicePixelRatio
+      canvas.width = Math.max(1, Math.floor(canvas.offsetWidth * pixelRatio))
+      canvas.height = Math.max(1, Math.floor(canvas.offsetHeight * pixelRatio))
     }
 
     function init() {
@@ -22,16 +26,21 @@ export default function HeroParticles({ count = 45 }) {
       particles = Array.from({ length: count }, () => ({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
-        r: (Math.random() * 2.2 + 0.6) * devicePixelRatio,
-        vx: (Math.random() - 0.5) * 0.18 * devicePixelRatio,
-        vy: (-Math.random() * 0.25 - 0.05) * devicePixelRatio,
+        r: (Math.random() * 2.2 + 0.6) * pixelRatio,
+        vx: (Math.random() - 0.5) * 0.18 * pixelRatio,
+        vy: (-Math.random() * 0.25 - 0.05) * pixelRatio,
         color: COLORS[Math.floor(Math.random() * COLORS.length)],
         alpha: Math.random() * 0.5 + 0.15,
         pulse: Math.random() * Math.PI * 2,
       }))
     }
 
-    function tick() {
+    function tick(now) {
+      if (!visible || document.hidden || now - lastFrame < frameInterval) {
+        raf = requestAnimationFrame(tick)
+        return
+      }
+      lastFrame = now
       ctx.clearRect(0, 0, canvas.width, canvas.height)
       for (const p of particles) {
         p.x += p.vx
@@ -50,12 +59,18 @@ export default function HeroParticles({ count = 45 }) {
       raf = requestAnimationFrame(tick)
     }
 
+    const observer = new IntersectionObserver(([entry]) => {
+      visible = entry.isIntersecting
+    }, { rootMargin: '120px' })
+
     init()
-    tick()
-    window.addEventListener('resize', init)
+    observer.observe(canvas)
+    raf = requestAnimationFrame(tick)
+    window.addEventListener('resize', resize, { passive: true })
     return () => {
       cancelAnimationFrame(raf)
-      window.removeEventListener('resize', init)
+      observer.disconnect()
+      window.removeEventListener('resize', resize)
     }
   }, [count])
 
